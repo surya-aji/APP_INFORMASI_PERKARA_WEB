@@ -1,5 +1,7 @@
 <?php
 
+use GuzzleHttp\Middleware;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +19,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix'=>'admin'],function(){
-Route::get('/','Admin\DashboardController@index');
+Route::get('/login','Authentication\LoginController@showFormLogin');
+Route::post('/logged','Authentication\LoginController@login');
+
+
+
+
+
+Route::group(['prefix'=>'admin','middleware'=>'CheckLogged'],function(){
+    Route::get('/','Admin\DashboardController@index');
 });
