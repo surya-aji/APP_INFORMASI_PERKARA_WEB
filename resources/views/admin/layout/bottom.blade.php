@@ -1,30 +1,19 @@
+<!-- BEGIN: Vendor JS-->
+    <script src="{{asset('public/app-assets/vendors/js/vendors.min.js')}}"></script>
+    <!-- BEGIN Vendor JS-->
 
-        <script src="{{asset('public/vendors/jquery/dist/jquery.min.js')}}"></script>
-        <script src="{{asset('public/vendors/popper.js/dist/umd/popper.min.js')}}"></script>
-        <script src="{{asset('public/vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-        <script src="{{asset('public/assets/js/main.js')}}"></script>
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="{{asset('public/app-assets/vendors/js/charts/apexcharts.min.js')}}"></script>
+    <script src="{{asset('public/app-assets/vendors/js/extensions/tether.min.js')}}"></script>
+    <script src="{{asset('public/app-assets/vendors/js/extensions/shepherd.min.js')}}"></script>
+    <!-- END: Page Vendor JS-->
 
-        <script src="{{asset('public/vendors/chart.js/dist/Chart.bundle.min.js')}}"></script>
-        <script src="{{asset('public/assets/js/dashboard.js')}}"></script>
-        <script src="{{asset('public/assets/js/widgets.js')}}"></script>
-        <script src="{{asset('public/vendors/jqvmap/dist/jquery.vmap.min.js')}}"></script>
-        <script src="{{asset('public/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
-        <script src="{{asset('public/vendors/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
-        <script>
-            (function ($) {
-                "use strict";
+    <!-- BEGIN: Theme JS-->
+    <script src="{{asset('public/app-assets/js/core/app-menu.js')}}"></script>
+    <script src="{{asset('public/app-assets/js/core/app.js')}}"></script>
+    <script src="{{asset('public/app-assets/js/scripts/components.js')}}"></script>
+    <!-- END: Theme JS-->
 
-                jQuery("#vmap").vectorMap({
-                    map: "world_en",
-                    backgroundColor: null,
-                    color: "#ffffff",
-                    hoverOpacity: 0.7,
-                    selectedColor: "#1de9b6",
-                    enableZoom: true,
-                    showTooltip: true,
-                    values: sample_data,
-                    scaleColors: ["#1de9b6", "#03a9f5"],
-                    normalizeFunction: "polynomial",
-                });
-            })(jQuery);
-        </script>
+    <!-- BEGIN: Page JS-->
+    <script src="{{asset('public/app-assets/js/scripts/pages/dashboard-analytics.js')}}"></script>
+    <!-- END: Page JS-->

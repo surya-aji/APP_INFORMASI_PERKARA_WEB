@@ -1,39 +1,40 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js" lang="en">
-    <!--<![endif]-->
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
 
-    <head>
-     @include('admin.layout.top')
-    </head>
+<head>
+  
+</head>
+<!-- END: Head-->
+    @include('admin.layout.top')
+<!-- BEGIN: Body-->
 
-    <body>
-        <!-- Left Panel -->
+<body class="vertical-layout vertical-menu-modern 2-columns navbar-floating footer-static menu-collapsed" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+
+    <!-- BEGIN: Header-->
+    @include('admin.layout.header')
+    <!-- END: Header-->
+
+
+    <!-- BEGIN: Main Menu-->
     @include('admin.layout.navigation')
-        
-        <!-- /#left-panel -->
+    <!-- END: Main Menu-->
 
-        <!-- Left Panel -->
+    <!-- BEGIN: Content-->
+    @yield('content')
+    <!-- END: Content-->
 
-        <!-- Right Panel -->
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
 
-        <div id="right-panel" class="right-panel">
-            <!-- Header-->
-           @include('admin.layout.header')
-            <!-- /header -->
-            <!-- Header-->
+    <!-- BEGIN: Footer-->
+    @include('admin.layout.footer')
+    <!-- END: Footer-->
 
-            @yield('content')
-            <!-- .content -->
-        </div>
-        <!-- /#right-panel -->
+    {{-- BOTTOM --}}
+    @include('admin.layout.bottom')
+    {{-- END BOTTOM --}}
+</body>
+<!-- END: Body-->
 
-        <!-- Right Panel -->
-
-        @include('admin.layout.bottom')
-       
-    </body>
 </html>
