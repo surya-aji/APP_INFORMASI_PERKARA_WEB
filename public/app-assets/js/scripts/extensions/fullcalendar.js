@@ -9,6 +9,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
+
   // color object for different event types
   var colors = {
     primary: "#7367f0",
@@ -56,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
       center: "dayGridMonth,timeGridWeek,timeGridDay",
       right: "prev,title,next"
     },
+    
     displayEventTime: false,
     navLinks: true,
     editable: true,

@@ -81,19 +81,19 @@
                                                 <form  method ="POST" action ="{{route('logged.store')}}">
                                                     @csrf
                                                     <fieldset class="form-label-group form-group position-relative has-icon-left">
-                                                        <input type="text" class="form-control" id="nik" name="nik" placeholder="Masukan NIK" required>
+                                                        <input type="text" class="form-control" id="nik" name="email" placeholder="Masukan Email" required>
                                                         <div class="form-control-position">
                                                             <i class="feather icon-user"></i>
                                                         </div>
-                                                        <label for="nomor_perkara">NIK</label>
+                                                        <label for="nomor_perkara">Email</label>
                                                     </fieldset>
 
                                                     <fieldset class="form-label-group position-relative has-icon-left">
-                                                        <input type="password" class="form-control" id="nik" name="nomor_telepon" placeholder="Masukan Nomor Telepon" required>
+                                                        <input type="password" class="form-control" id="nik" name="nomor_telepon" placeholder="Masukan password" required>
                                                         <div class="form-control-position">
                                                             <i class="feather icon-lock"></i>
                                                         </div>
-                                                        <label for="perkara_id">Nomor Telepon</label>
+                                                        <label for="perkara_id">Password</label>
                                                     </fieldset>
                                                     <div class="d-flex justify-content-center">
                                                         <button type="submit" class="btn btn-outline-warning"> &nbsp &nbsp Login &nbsp &nbsp</button>
@@ -107,7 +107,7 @@
                                                 <div class="divider-text"></div>
                                             </div>
                                             <div class="footer-btn d-inline text-right">
-                                                <div class="center"><a href={{route('login-admin')}} class="card-link text-warning">Login Sebagai Petugas?</a></div>
+                                                <div class="center"><a href="<?=url('/login')?>" class="card-link text-warning">Login Sebagai Pihak?</a></div>
                                             </div><br>
                                         </div>
                                     </div>

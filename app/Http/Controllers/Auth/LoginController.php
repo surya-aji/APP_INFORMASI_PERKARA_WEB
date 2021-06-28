@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Http\Request;
+
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 
 class LoginController extends Controller
 {
@@ -46,7 +51,16 @@ class LoginController extends Controller
      */
     public function username()
     {
-        return 'email';
+        return 'nomor_indentitas';
+        
+    }
+    public function logout (Request $request) {
+        Auth::logout();
+        Session::flush();
+        $request->session()->forget('key');
+        $request->session()->invalidate();
+        Session::flash('succ_message', 'Logged out Successfully');
+        return redirect('/');
     }
 
 }

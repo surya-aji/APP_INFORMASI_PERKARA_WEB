@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'user',
     ],
 
     /*
@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'user',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -57,7 +61,8 @@ return [
     | users are actually retrieved out of your database or other storage
     | mechanisms used by this application to persist your user's data.
     |
-    | If you have multiple user tables or models you may configure multiple
+    | If you have multiple user tables or models you may configure mu
+    ltiple
     | sources which represent each model / table. These sources may then
     | be assigned to any extra authentication guards you have defined.
     |
@@ -70,6 +75,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
+ 
 
         // 'users' => [
         //     'driver' => 'database',
