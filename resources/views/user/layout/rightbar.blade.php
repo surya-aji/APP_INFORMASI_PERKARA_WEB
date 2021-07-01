@@ -12,48 +12,65 @@
                         <div id="calendar"></div>
                     </div>
                 </div>
-                <hr />
             </div>
 
             {{-- JADWAL --}}
            
-            <span>
-                <h4 class="card-title">
-                    Jadwal Anda
-                    @if (Request::segment(3) !== 'jadwal')
-                    <i class="feather icon-chevrons-right"></i><small><a href="<?=url("user/{$data->perkara_id}/jadwal")?>">Selengkapnya</a> </small>
-                    @endif
-                </h4>
-            </span>
-            <div class="card" style="border: 5px solid; border-color: #fff #fff #fff #e8523f;">
+         
+            <div class="card" >
                 <div class="card-content">
                     <div class="card-body round">
-                        <div class="user-page-info">
-                            <p class="mb-0">{{$datasidang->agenda}}</p>
+                        <span>
+                            <h4 class="card-title">
+                                &nbsp Jadwal Anda
+                                @if (Request::segment(3) !== 'jadwal')
+                                <i class="feather icon-chevrons-right"></i><small><a href="<?=url("user/{$data->perkara_id}/jadwal")?>">Selengkapnya</a> </small>
+                                @endif
+                            </h4>
+                        </span>
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            <p class="mb-0">
+                                {{$datasidang->agenda}}
+                            </p>
                             <span class="font-small-2">{{Carbon\Carbon::parse($datasidang->tanggal_sidang)->isoFormat('dddd, D MMMM Y')}}</span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"><i class="feather icon-x-circle"></i></span>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
            
-<hr />
 
 {{-- JAM --}}
 
-<div class="card" style="border: 5px solid; border-color: #fff #fff #fff #f8b849;">
+<div class="card">
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="card text-center bg-transparent">
             <div class="card-content">
                 <img src="{{asset('public/images/logo.png')}}" alt="element 04" width="80" class="float-right mt-1 pr-2" /><br />
-                <div class="card-body round" >
-                    <br />
+                <div class="card-body round">
+                    <br/>
                     <h4 class="card-title mt-3">
+                        <span id="jamServer"><?php echo date("H:i:s");?></span>
+                    </h4>
+                    <div class="alert alert-primary" role="alert">
+                        {{-- <h4 class="alert-heading"><span id="jamServer"><?php echo date("H:i:s");?></span></h4> --}}
+                        <p class="card-text mb-25">Ambil Antiran Untuk Nomor Perkara {{$data->nomor_perkara}}</p>
+                    </div>
+                    @if (Request::segment(3) !== 'jadwal')
+                    <a href="<?=url("user/{$data->perkara_id}/jadwal")?>" class="btn btn-primary mt-1">Ambil Antrian</a>
+               
+                    @endif 
+
+                    {{-- <h4 class="card-title] mt-3">
                         <span id="jamServer"><?php echo date("H:i:s");?></span>
                     </h4>
                     <p class="card-text mb-25">Ambil Antiran Untuk Nomor Perkara {{$data->nomor_perkara}}</p>
                     @if (Request::segment(3) !== 'jadwal')
-                    <a href="<?=url("user/{$data->perkara_id}/putusan")?>" class="btn btn-primary mt-1">Ambil Antrian</a>
-                    @endif
+                            <a href="<?=url("user/{$data->perkara_id}/jadwal")?>" class="btn btn-primary mt-1">Ambil Antrian</a>
+                       
+                    @endif --}}
                 </div>
             </div>
         </div>
@@ -159,13 +176,14 @@ console.log(jadwal);
             navLinks: true,
             editable: false,
             allDay: true,
+            
             navLinkDayClick: function (date) {
                 $(".modal-calendar").modal("show");
             },
             
            
             events: jadwal,
-
+            eventColor: '#E8523F',
 
 
             dateClick: function (info) {
@@ -175,7 +193,7 @@ console.log(jadwal);
             // displays saved event values on click
             eventClick: function (info) {
                 $(".modal-calendar").modal("show");
-                $(".modal-calendar #cal-event-title").val(info.event.title);
+                $(".modal-calendar #cal-event-title").val('SIDANG');
                 $(".modal-calendar #cal-start-date").val(moment(info.event.start).format('D MMMM Y'));
                 $(".modal-calendar #cal-end-date").val(moment(info.event.end).format("YYYY-MM-DD"));
                 $(".modal-calendar #cal-description").val(info.event.extendedProps.description);

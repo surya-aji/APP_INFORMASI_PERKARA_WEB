@@ -5,7 +5,7 @@
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
     <div class="content-wrapper">
-        <div class="content-header row">
+        {{-- <div class="content-header row">
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
 
         <div class="content-body">
@@ -59,9 +59,16 @@
                                                 <td>{{++$i}}</td>
                                                 <td>{{Carbon\Carbon::parse($jd->tanggal_sidang)->isoFormat('dddd, D MMMM Y')}}</td>
                                                 <td>{{$jd->agenda}}</td>
-                                                <td>{{$jd->sidang_keliling}}</td>
+                                                <td>
+                                                    @if ($jd->sidang_keliling == 'Y')
+                                                        Ya
+                                                        
+                                                    @else
+                                                        Tidak
+                                                    @endif 
+                                                </td>
                                                 <td>{{$jd->ruangan}}</td>
-                                                <td>{{$jd->alasan_ditunda}}</td>
+                                                <td>{{$jd->alasan_ditunda ? $jd->alasan_ditunda:"-" }}</td>
                                             </tr>
                                             @endforeach
                                           
@@ -92,11 +99,32 @@
                             </div>
                             <div class="text-center">
                                 <h1 class="mb-2 text-white"></h1>
-                            <p class="m-auto "> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  Ambil Antrian Sidang Untuk Hari Ini 
-                                Sebagai &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <br> <strong> {{$data->nomor_perkara}} </strong>  
-                                </p><br>
+                                <p class="m-auto "> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  Ambil Antrian Sidang Untuk Hari Ini 
+                                    Sebagai &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp <br> <strong> {{$data->nomor_perkara}} </strong>  
+                                </p>
+                                <br>
+                                @if (date('YYYY-MM-DD') == date('YYYY-MM-DD',strtotime($datasidang->tanggal_sidang)) && date('H') < '24' && count($checking) < 1)
+                                <form class="form form-horizontal" action="<?=url("user/{$data->perkara_id}/jadwal/ambil_antrian")?>" method="POST" >
+                                    @csrf
+                                    <button  type="submit" class="btn btn-primary center">Ambil Antrian</button><br>
+                                </form>
+                                @elseif(Session::has('message'))
+                                <p class="m-auto "> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  Berhasil Mengambil Antrian
+                                    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<br>  
+                                </p>
+                                @elseif(count($checking) > 0)
+                                <div class="alert alert-success mt-1 alert-validation-msg" role="alert">
+                                    <i class="feather icon-info mr-1 align-middle"></i>
+                                    <span>Telah Berhasil Mengambil <strong> Antrian Sidang</strong></span>
+                                </div>
+                                @else
+                                <div class="alert alert-danger mt-1 alert-validation-msg" role="alert">
+                                    <i class="feather icon-info mr-1 align-middle"></i>
+                                    <span>Maaf, Tidak ada <strong> Antrian Sidang</strong> Untuk Hari ini</span>
+                                </div>
+                                @endif
+                                <br>
                             </div>
-                            <button class="btn btn-primary center">Ambil Antrian</button><br>
                         </div><br>
                     </div>
                 </div>

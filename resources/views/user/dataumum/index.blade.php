@@ -4,29 +4,6 @@
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
     <div class="content-wrapper">
-        <div class="content-header row">
-            <div class="content-header-left col-md-9 col-12 mb-2">
-                <div class="row breadcrumbs-top">
-                    <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Data Umum</h2>
-                        <div class="breadcrumb-wrapper col-12">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="<?=url("admin/{$data->perkara_id}")?>">Home</a></li>
-                                <li class="breadcrumb-item active">Data Umum</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-                <div class="form-group breadcrum-right">
-                    <div class="dropdown">
-                        <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather icon-settings"></i></button>
-                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">Chat</a><a class="dropdown-item" href="#">Email</a><a class="dropdown-item" href="#">Calendar</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
         <div class="content-body">
@@ -186,8 +163,8 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td class="text-center" style="width: 25%">{{$data->tgl_nikah}}</td>
-                                                    <td class="text-center" style="width: 25%">{{$data->tgl_kutipan_akta_nikah}}</td>
+                                                    <td class="text-center" style="width: 25%">{{Carbon\Carbon::parse($data->tgl_nikah)->isoFormat('dddd, D MMMM Y')}}</td>
+                                                    <td class="text-center" style="width: 25%">{{Carbon\Carbon::parse($data->tgl_kutipan_akta_nikah)->isoFormat('dddd, D MMMM Y')}}</td>
                                                     <td class="text-center" style="width: 25%">{{$data->no_kutipan_akta_nikah}}</td>
                                                     <td>{{$data->kua_tempat_nikah}}</td>
                                                 </tr>
@@ -215,7 +192,7 @@
                                         <div class="card-body text-justify">
                                             <!-- Button trigger modal -->
                                             {{Str::limit(strip_tags($data->posita), 200, '...')}} <br>
-                                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#posita">
+                                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#posita">
                                                 Selengkapnya
                                             </button>
     
@@ -258,7 +235,7 @@
                                         <div class="card-body">
                                             {{Str::limit(strip_tags($data->petitum), 50, '...')}} <br>
                                             <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModalScrollable">
+                                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalScrollable">
                                                 Selengkapnya
                                             </button>
     

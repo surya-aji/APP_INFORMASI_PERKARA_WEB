@@ -5,7 +5,7 @@
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
     <div class="content-wrapper">
-        <div class="content-header row">
+        {{-- <div class="content-header row">
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="content-body">
  
             <!-- Table Hover Animation start 1 -->
@@ -67,7 +67,13 @@
                                         <thead>
                                             <tr>
                                                 <th class="w-50" scope="col">Putusan Verztek</th>
-                                                <th scope="col">{{$putusan->putusan_verstek}}</th>
+                                                <th scope="col">
+                                                    @if ($putusan->putusan_verstek == 'Y')
+                                                        Ya
+                                                    @else
+                                                        Tidak
+                                                    @endif 
+                                                </th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -90,7 +96,21 @@
                                         <thead>
                                             <tr>
                                                 <th class="w-50" scope="col">Status Putusan</th>
-                                                <th scope="col">?</th>
+                                                <th scope="col">
+                                                    @if ($putusan->status_putusan_id == 62)
+                                                        Dikabulkan
+                                                    @elseif($putusan->status_putusan_id == 63)
+                                                        Ditolak
+                                                    @elseif($putusan->status_putusan_id == 64)
+                                                        Tidak Dapat Diterima
+                                                    @elseif($putusan->status_putusan_id == 65)
+                                                        Digugurkan
+                                                    @elseif($putusan->status_putusan_id == 66)
+                                                        Dicoret dari Register
+                                                    @elseif($putusan->status_putusan_id == 67)
+                                                        Dicabut
+                                                    @endif
+                                                </th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -113,7 +133,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="w-50" scope="col">Tanggal Minutasi</th>
-                                                <th scope="col">?</th>
+                                                <th scope="col">{{Carbon\Carbon::parse($putusan->tanggal_minutasi)->isoFormat('dddd, D MMMM Y')}}</th>
                                             </tr>
                                         </thead>
                                     </table>

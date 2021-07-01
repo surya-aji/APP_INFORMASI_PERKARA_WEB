@@ -19,11 +19,11 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('auth.pihak.login');
 });
 
-Route::resource('/login','Authentication\LoginController');
-Route::resource('/logged','Authentication\LoginController');
+Route::resource('/login-user','Authentication\LoginController');
+Route::resource('/logged-user','Authentication\LoginController');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/login-admin', function(){
     return view('auth.admin.login');
@@ -43,6 +43,8 @@ Route::get('/login-admin', function(){
         Route::get('{id}/jadwal','User\SidangController@index');
         Route::get('{id}/putusan','User\PutusanController@index');
         Route::get('{id}/biaya','User\BiayaController@index');
+        Route::post('{id}/jadwal/ambil_antrian','User\SidangController@store')->name('ambil-antrian');
+
     });
    
    

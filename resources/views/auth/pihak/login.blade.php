@@ -78,7 +78,7 @@
                                        
                                         <div class="card-content">
                                             <div class="card-body pt-1">
-                                                <form  method ="POST" action ="{{route('logged.store')}}">
+                                                <form  method ="POST" action ="{{route('logged-user.store')}}">
                                                     @csrf
                                                     <fieldset class="form-label-group form-group position-relative has-icon-left">
                                                         <input type="text" class="form-control" id="nik" name="nik" placeholder="Masukan NIK" required>
