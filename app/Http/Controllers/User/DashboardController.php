@@ -14,7 +14,7 @@ class DashboardController extends Controller
         // Dapatkan Url Terakhir
         $url = request()->segment(count(request()->segments()));
         $jam = Carbon::now()->format('H:i:m');
-        $data = DB::table('perkara')
+        $data = DB::connection('mysql3')->table('perkara')
         ->join('perkara_pihak1','perkara.perkara_id','=','perkara_pihak1.perkara_id')
         ->join('perkara_pihak2','perkara.perkara_id','=','perkara_pihak2.perkara_id')
         ->join('perkara_data_pernikahan','perkara.perkara_id',
@@ -30,12 +30,12 @@ class DashboardController extends Controller
         ->where('perkara.perkara_id',$url)->first();
 
 
-        $datasidang = DB::table('perkara_jadwal_sidang')
+        $datasidang = DB::connection('mysql3')->table('perkara_jadwal_sidang')
         ->latest('tanggal_sidang')
         ->where('perkara_id',$url)
         ->first();
       
-            $jadwal_agenda = DB::table('perkara_jadwal_sidang')
+            $jadwal_agenda = DB::connection('mysql3')->table('perkara_jadwal_sidang')
             ->select('perkara_id', 'tanggal_sidang as start', 'agenda',DB::raw('CONCAT("Dimulai Pukul ",jam_sidang," WIB", " Sampai Jam ", sampai_jam," WIB "," di Ruangan Sidang ",ruangan) AS description'))
             ->where('perkara_id',$url)
             ->get();

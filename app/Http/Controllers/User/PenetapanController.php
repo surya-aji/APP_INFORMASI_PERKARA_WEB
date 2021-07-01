@@ -28,7 +28,7 @@ class PenetapanController extends Controller
         //     )
         // ->where('perkara_penetapan.perkara_id',$url)->first();
 
-        $penetapan = DB::table('perkara_penetapan')
+        $penetapan = DB::connection('mysql3')->table('perkara_penetapan')
         ->where('perkara_penetapan.perkara_id',$url)->first();
 
         // $hakim = DB::table('perkara_hakim_pn')
@@ -37,17 +37,17 @@ class PenetapanController extends Controller
         // ->where('perkara_hakim_pn.perkara_id',$url)
         // ->get();
 
-        $data = DB::table('perkara') 
+        $data = DB::connection('mysql3')->table('perkara') 
         ->where('perkara_id',$url)
         ->first();
 
         
-        $datasidang = DB::table('perkara_jadwal_sidang')
+        $datasidang = DB::connection('mysql3')->table('perkara_jadwal_sidang')
         ->latest('tanggal_sidang')
         ->where('perkara_id',$url)
         ->first();
 
-        $jadwal_agenda = DB::table('perkara_jadwal_sidang')
+        $jadwal_agenda = DB::connection('mysql3')->table('perkara_jadwal_sidang')
         ->select('perkara_id', 'tanggal_sidang as start', 'agenda',DB::raw('CONCAT("Dimulai Pukul ",jam_sidang," WIB", " Sampai Jam ", sampai_jam," WIB "," di Ruangan Sidang ",ruangan) AS description'))
         ->where('perkara_id',$url)
         ->get();
