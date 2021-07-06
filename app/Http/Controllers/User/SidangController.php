@@ -26,7 +26,7 @@ class SidangController extends Controller
         ->first();
 
         $jadwal_agenda = DB::connection('mysql3')->table('perkara_jadwal_sidang')
-        ->select('perkara_id', 'tanggal_sidang as start', 'agenda',DB::raw('CONCAT("Sidang dimulai pukul ",jam_sidang," WIB", " Sampai Jam ", sampai_jam," WIB "," di Ruangan Sidang ",ruangan) AS description'))
+        ->select('perkara_id', 'tanggal_sidang as start', 'agenda',DB::raw('CONCAT("Dimulai Pukul ",jam_sidang," WIB", " Sampai Jam ", sampai_jam," WIB "," di Ruangan Sidang ",ruangan) AS description'), DB::raw('CONCAT("sidang") AS title'))
         ->where('perkara_id',$url)
         ->get();
 
@@ -36,8 +36,20 @@ class SidangController extends Controller
         ->where('no_perk',$url)
         ->get();
 
+        $antrian = DB::connection('mysql2')->table('antrian')
+        ->select('*')
+        ->where('no_perk',$url)
+        ->first();
 
-        return view('user.jadwalsidang.index',compact('data','jadwal','url','datasidang','jadwal_agenda','checking'));
+        $tahap =  DB::connection('mysql3')->table('perkara_proses')
+        ->select('*')
+        ->where('perkara_id',$url)
+        ->get();
+
+        
+
+
+        return view('user.jadwalsidang.index',compact('data','jadwal','url','datasidang','jadwal_agenda','checking','antrian','tahap'));
     }
 
     public function store(Request $request){

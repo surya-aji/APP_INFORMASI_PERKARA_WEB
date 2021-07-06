@@ -78,7 +78,7 @@
                                        
                                         <div class="card-content">
                                             <div class="card-body pt-1">
-                                                <form  method ="POST" action ="{{route('logged-user.store')}}">
+                                                <form  method ="POST" action ="{{route('loged')}}">
                                                     @csrf
                                                     <fieldset class="form-label-group form-group position-relative has-icon-left">
                                                         <input type="text" class="form-control" id="nik" name="nik" placeholder="Masukan NIK" required>
@@ -107,7 +107,7 @@
                                                 <div class="divider-text"></div>
                                             </div>
                                             <div class="footer-btn d-inline text-right">
-                                                <div class="center"><a href={{route('login-admin')}} class="card-link text-warning">Login Sebagai Petugas?</a></div>
+                                                <div class="center"><a href="<?=url('/login')?>" class="card-link text-warning">Login Sebagai Petugas?</a></div>
                                             </div><br>
                                         </div>
                                     </div>

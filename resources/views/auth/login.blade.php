@@ -68,7 +68,7 @@
                                                 <h3 class="mb-0 ">Login</h3>
                                             </div>
                                         </div>
-                                        <p class="">Silahkan Login Menggunakan Nomor Induk Kependudukan beserta Nomor Telepon yang sudah terdaftar :</p>
+                                        <p class="">Silahkan Login Username beserta Password yang sudah terdaftar :</p>
                                         
                                     @if (session('gagal'))
                                         <div class="alert alert-danger">
@@ -95,12 +95,30 @@
                                                         </div>
                                                         <label for="password">Password</label>
                                                     </fieldset>
+                                                    <div class="form-group d-flex justify-content-between align-items-center">
+                                                        <div class="text-left">
+                                                            <fieldset class="checkbox">
+                                                                <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                    <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                                                    <span class="vs-checkbox">
+                                                                        <span class="vs-checkbox--check">
+                                                                            <i class="vs-icon feather icon-check"></i>
+                                                                        </span>
+                                                                    </span>
+                                                                    <span class="">Ingat Saya</span>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="text-right">  @if (Route::has('password.request'))
+                                                            <a class="card-link" href="{{ route('password.request') }}">
+                                                                {{ __('Lupa Password?') }}
+                                                            </a>
+                                                            @endif</div>
+                                                    </div>
                                                     <div class="d-flex justify-content-center">
                                                         <button type="submit" class="btn btn-outline-warning"> &nbsp &nbsp Login &nbsp &nbsp</button>
-                                                        
                                                     </div>
                                                     
-                                                  
                                                 </form>
                                             </div>
                                         </div>
@@ -109,8 +127,9 @@
                                                 <div class="divider-text"></div>
                                             </div>
                                             <div class="footer-btn d-inline text-right">
-                                                
-                                                <div class="center"><a href="<?=url('/login-user')?>" class="card-link text-warning">Login Sebagai Pihak?</a></div>
+                                                <div>
+                                                        <a href="<?=url('/login-user')?>" class="card-link text-warning">Login Sebagai Pihak?</a>
+                                                </div>
                                             </div><br>
                                         </div>
                                     </div>

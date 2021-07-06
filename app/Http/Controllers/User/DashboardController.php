@@ -36,12 +36,18 @@ class DashboardController extends Controller
         ->first();
       
             $jadwal_agenda = DB::connection('mysql3')->table('perkara_jadwal_sidang')
-            ->select('perkara_id', 'tanggal_sidang as start', 'agenda',DB::raw('CONCAT("Dimulai Pukul ",jam_sidang," WIB", " Sampai Jam ", sampai_jam," WIB "," di Ruangan Sidang ",ruangan) AS description'))
+            ->select('perkara_id', 'tanggal_sidang as start', 'agenda',DB::raw('CONCAT("Dimulai Pukul ",jam_sidang," WIB", " Sampai Jam ", sampai_jam," WIB "," di Ruangan Sidang ",ruangan) AS description'), DB::raw('CONCAT("sidang") AS title'))
             ->where('perkara_id',$url)
             ->get();
 
+            $tahap =  DB::connection('mysql3')->table('perkara_proses')
+            ->select('*')
+            ->where('perkara_id',$url)
+            ->get();
+    
 
-        return view('user.layout.dashboard',compact('data','jam','datasidang','jadwal_agenda'));
+
+        return view('user.layout.dashboard',compact('data','jam','datasidang','jadwal_agenda','tahap'));
     }
     
 }

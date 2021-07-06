@@ -9,83 +9,60 @@
             <div class="card">
                 <div class="card-content">
                     <div class="card-body">
-                        <div id="calendar"></div>
+                        <div id="kalendar"></div>
                     </div>
                 </div>
             </div>
-             {{-- Tahapan --}}
-             <div class="card">
-                <div class="card-header divider">
-                    <h4 class="card-title divider-text font-medium-2"><i class="feather icon-check-circle"></i> Timeline Tahapan</h4>
-                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-                    <div class="heading-elements">
-                        <ul class="list-inline mb-0">
-                            <li><a data-action="collapse"><i class="feather icon-chevron-down"></i></a></li>
-                        </ul>
+            {{-- JADWAL --}}
+           
+         
+            <div class="card">
+                <div class="card-header divider d-flex align-items-start pb-0">
+                    <div>
+                        <p>Total Perkara</p>
+                        <h2 class="text-bold-700  mt-1">{{$total_perkara}}</h2>
+                    </div>
+                    <div class="avatar bg-rgba-primary p-50">
+                        <div class="avatar-content">
+                            <i class="feather icon-monitor text-primary font-medium-5"></i>
+                        </div>
                     </div>
                 </div>
-                <div class="card-content collapse show">
-                    <div class="card-body">
-                        <ul class="activity-timeline timeline-left list-unstyled">
-                            @foreach ($tahap as $i=>$item)
-                            <li>
-                                <div class="timeline-icon bg-primary">
-                                    <i class="feather icon-check font-small-2">{{++$i}}</i>
-                                </div>
-                                <div class="alert alert-primary" role="alert">
-                                    <p class="mb-0">
-                                        {{$item->proses_nama}}
-                                        <h4 class="alert-heading">{{Carbon\Carbon::parse($item->tanggal)->isoFormat('dddd, D MMMM Y')}}</h4>
-                                    </p>
-                                </div>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
+                <br>
             </div>
 
-            {{-- JAM --}}
-
-@if (Request::segment(3) !== 'jadwal')
-<div class="card">
-    <div class="col-lg-12 col-md-12 col-sm-12">
-        <div class="card text-center bg-transparent">
-            <div class="card-content">
-                <img src="{{asset('public/images/logo.png')}}" alt="element 04" width="80" class="float-right mt-1 pr-2" /><br />
-                <div class="card-body round">
-                    <br/>
-                    <h4 class="card-title mt-3">
-                        <span id="jamServer"><?php echo date("H:i:s");?></span>
-                    </h4>
-                    <div class="alert alert-primary" role="alert">
-                        {{-- <h4 class="alert-heading"><span id="jamServer"><?php echo date("H:i:s");?></span></h4> --}}
-                        <p class="card-text mb-25">Ambil Antiran Untuk Nomor Perkara {{$data->nomor_perkara}}</p>
+            <div class="card">
+                <div class="card-header divider d-flex align-items-start pb-0">
+                    <div>
+                        <p>Masih Proses</p>
+                        <h2 class="text-bold-700  mt-1">97.5k</h2>
                     </div>
-                    <a href="<?=url("user/{$data->perkara_id}/jadwal")?>" class="btn btn-primary mt-1">Ambil Antrian</a>
-               
-                    
-                    {{-- <h4 class="card-title] mt-3">
-                        <span id="jamServer"><?php echo date("H:i:s");?></span>
-                    </h4>
-                    <p class="card-text mb-25">Ambil Antiran Untuk Nomor Perkara {{$data->nomor_perkara}}</p>
-                    @if (Request::segment(3) !== 'jadwal')
-                    <a href="<?=url("user/{$data->perkara_id}/jadwal")?>" class="btn btn-primary mt-1">Ambil Antrian</a>
-                    
-                    @endif --}}
+                    <div class="avatar bg-rgba-warning p-50 m-0">
+                        <div class="avatar-content">
+                            <i class="feather icon-alert-octagon text-warning font-medium-5"></i>
+                        </div>
+                    </div>
                 </div>
+                <br>
             </div>
-        </div>
-    </div>
-</div>
+
+            <div class="card">
+                <div class="card-header divider d-flex align-items-start pb-0">
+                    <div>
+                        <p>Selesai</p>
+                        <h2 class="text-bold-700  mt-1">97.5k</h2>
+                    </div>
+                    <div class="avatar bg-rgba-success p-50">
+                        <div class="avatar-content">
+                            <i class="feather icon-user-check text-success font-medium-5"></i>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+
+
 <br />
-@endif 
-
-           
-        </div>
-           
-
-
 
 <!-- calendar Modal starts-->
 <div class="modal fade text-left modal-calendar" tabindex="-1" role="dialog" aria-labelledby="cal-modal" aria-modal="true">
@@ -130,8 +107,6 @@
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
-var jadwal = {!! $jadwal_agenda!!};
-console.log(jadwal);
     document.addEventListener("DOMContentLoaded", function () {
         // color object for different event types
         var colors = {
@@ -153,7 +128,7 @@ console.log(jadwal);
             eventColor = "#ff9f43";
 
         // calendar init
-        var calendarEl = document.getElementById("calendar");
+        var calendarEl = document.getElementById("kalendar");
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             plugins: ["dayGrid", "timeGrid", "interaction"],
@@ -191,7 +166,7 @@ console.log(jadwal);
             },
             
            
-            events: jadwal,
+            
             eventColor: '#E8523F',
 
 

@@ -18,16 +18,44 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+
 Route::get('/', function () {
     return view('auth.pihak.login');
 });
 
-Route::resource('/login-user','Authentication\LoginController');
-Route::resource('/logged-user','Authentication\LoginController');
+Route::get('/login-user','User\LoginPihakController@index');
+Route::post('/logged-user','User\LoginPihakController@store')->name('loged');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
-Route::get('/login-admin', function(){
-    return view('auth.admin.login');
-})->name('login-admin');
+// Route::get('/login-admin', function(){
+//     return view('auth.admin.login');
+// })->name('login-admin');
+
+
+
+Route::get('/admin-dashboard', 'Admin\DashboardController@index')->middleware('auth');
+
+Route::get('/kelola-berkas', function () {
+    return view('admin.kelola-berkas.index');
+})->middleware('auth');
+
+// Manajemen User
+
+    Route::get('/manajemen-user','Admin\ManajemenUserController@index')->middleware('auth');
+    Route::get('/register', function () {
+        return view('admin.manajemen-user.register');
+    })->middleware('auth');
+    Route::post('/register','Admin\ManajemenUserController@create' )->name('tambah-user')->middleware('auth');
+    Route::get('/manajemen-user/{id}','Admin\ManajemenUserController@edit')->middleware('auth');
+    Route::post('/manajemen-user/{id}','Admin\ManajemenUserController@update')->middleware('auth');
+    Route::post('/manajemen-user/destroy/{id}','Admin\ManajemenUserController@destroy')->middleware('auth');
+
+// Kelola Berkas
+Route::get('/kelola-berkas','Admin\DokumenController@index')->middleware('auth');
+Route::get('/kelola-berkas/{id}','Admin\DokumenController@create')->middleware('auth');
+
+
+
+
 
 
 

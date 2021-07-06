@@ -31,7 +31,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/admin-dashboard';
 
     /**
      * Create a new controller instance.
@@ -51,16 +51,13 @@ class LoginController extends Controller
      */
     public function username()
     {
-        return 'nomor_indentitas';
+        return 'username';
         
     }
     public function logout (Request $request) {
         Auth::logout();
-        Session::flush();
-        $request->session()->forget('key');
-        $request->session()->invalidate();
         Session::flash('succ_message', 'Logged out Successfully');
-        return redirect('/');
+        return redirect('/login');
     }
 
 }
