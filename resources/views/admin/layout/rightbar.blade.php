@@ -35,7 +35,7 @@
                 <div class="card-header divider d-flex align-items-start pb-0">
                     <div>
                         <p>Masih Proses</p>
-                        <h2 class="text-bold-700  mt-1">97.5k</h2>
+                        <h2 class="text-bold-700  mt-1">{{$masih_proses}}</h2>
                     </div>
                     <div class="avatar bg-rgba-warning p-50 m-0">
                         <div class="avatar-content">

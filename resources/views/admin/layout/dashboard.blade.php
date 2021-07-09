@@ -37,47 +37,21 @@
                                     </div>
                                 </div>
                             </div>
+{{-- {{$data_tahun}} --}}
 
                             <div class="col-lg-12 col-md-12 col-12">
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between">
-                                        <h4 class="card-title">Sales</h4>
-                                        <fieldset class="form-group">
-                                            <div class="input-group">
-                                                <select class="form-control" id="basicSelect">
-                                                    <?php
-                                                    for ($year = (int)date('Y'); 2000 <= $year; $year--): ?>
-                                                      <option value="<?=$year;?>"><?=$year;?></option>
-                                                    <?php endfor; ?>
-                                                </select>
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-primary" type="button">Cari</button>
-                                                </div>
-                                            </div>
-                                          
-                                        </fieldset>
-                                          {{-- <fieldset>
-                                                    <div class="input-group">
-                                                        <select class="form-control" name="tahun">
-                                                            <?php
-                                                            for ($year = (int)date('Y'); 2000 <= $year; $year--): ?>
-                                                              <option value="<?=$year;?>"><?=$year;?></option>
-                                                            <?php endfor; ?>
-                                                           </select>
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-primary" type="button">Cari</button>
-                                                        </div>
-                                                    </div>
-                                                </fieldset> --}}
-                                        <h3><i class="feather icon-settings text-muted cursor-pointer"></i></h3>
+                                        <h4 class="card-title">Statistik Tahunan Perkara</h4>
                                     </div>
+                                    
                                     <div class="card-content">
                                         <div class="card-body pb-0">
                                             <div id="sales-line-chart"></div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -
 
                         </div>
                   
@@ -90,9 +64,8 @@
             </div>
         </div>
 
-        <script type="text/javascript">
-        
-         /*=========================================================================================
+        <script> 
+        /*=========================================================================================
     File Name: card-statistics.js
     Description: Card-statistics page content with Apexchart Examples
     ----------------------------------------------------------------------------------------
@@ -102,6 +75,9 @@
 ==========================================================================================*/
 
 $(window).on("load", function(){
+   
+var tahunan = <?php echo $data_tahun?>;
+var th = <?php echo $date?>;
 
 var $primary = '#7367F0';
 var $danger = '#EA5455';
@@ -123,11 +99,9 @@ var $white = '#fff';
   // -----------------------------
 
  var salesavgChartoptions = {
-   
-     
     chart: {
       height: 270,
-      toolbar: { show: false },
+      toolbar: { show: true },
       type: 'line',
       dropShadow: {
           enabled: true,
@@ -146,7 +120,12 @@ var $white = '#fff';
     },
     legend: {
         show: false,
-    },
+    }, 
+      title: {
+        display: true,
+        text: 'Tahun'+ " " +th,
+      },
+ 
    colors: [$purple],
     fill: {
         type: 'gradient',
@@ -167,7 +146,6 @@ var $white = '#fff';
             size: 5
         }
     },
-
     xaxis: {
         labels: {
             style: {
@@ -175,9 +153,9 @@ var $white = '#fff';
             }
         },
         axisTicks: {
-            show:   ,
+            show: false,
         },
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Juli', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+        // categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Juli', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
         axisBorder: {
             show: false,
         },
@@ -197,10 +175,9 @@ var $white = '#fff';
     tooltip: {
         x: { show: false }
     },
-    
     series: [{
-          name: "aaa",
-          data: [940, 180, 150, 205, 160, 295, 125, 255, 205, 305, 240, 405]
+          name: "Total Perkara",
+          data: tahunan,
       }],
 
   }
@@ -212,9 +189,14 @@ var $white = '#fff';
 
   salesavgChart.render();
 
+  document.getElementById("printChart").addEventListener("click",function(){
+    	chart.print();
+    });  	
 });
 
+        
         </script>
+
 
 
 @endsection('content')

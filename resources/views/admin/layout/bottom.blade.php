@@ -24,7 +24,7 @@
     <script src="{{asset('public/app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js')}}"></script>
     <script src="{{asset('public/app-assets/vendors/js/extensions/dropzone.min.js')}}"></script>
     <script src="{{asset('public/app-assets/vendors/js/ui/prism.min.js')}}"></script>
-    
+    <script src="{{asset('public/app-assets/vendors/js/charts/apexcharts.min.js')}}"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -37,8 +37,9 @@
     <script src="{{asset('public/app-assets/js/scripts/extensions/fullcalendar.js')}}"></script>
     <script src="{{asset('public/app-assets/js/scripts/pages/dashboard-analytics.js')}}"></script>
     <script src="{{asset('public/app-assets/js/scripts/ui/data-list-view.js')}}"></script>
-    <script src="{{asset('public/app-assets/js/scripts/cards/card-analytics.js')}}"></script>
+    {{-- <script src="{{asset('public/app-assets/js/scripts/cards/card-analytics.js')}}"></script> --}}
     <script src="{{asset('public/app-assets/js/scripts/datatables/datatable.js')}}"></script>
     <script src="{{asset('public/app-assets/js/scripts/extensions/dropzone.js')}}"></script>
+    
     
     <!-- END: Page JS-->
