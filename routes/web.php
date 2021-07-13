@@ -41,9 +41,7 @@ Route::get('/kelola-berkas', function () {
 // Manajemen User
 
     Route::get('/manajemen-user','Admin\ManajemenUserController@index')->middleware('auth');
-    Route::get('/register', function () {
-        return view('admin.manajemen-user.register');
-    })->middleware('auth');
+    Route::get('/register','Admin\ManajemenUserController@showRegister' )->middleware('auth');
     Route::post('/register','Admin\ManajemenUserController@create' )->name('tambah-user')->middleware('auth');
     Route::get('/manajemen-user/{id}','Admin\ManajemenUserController@edit')->middleware('auth');
     Route::post('/manajemen-user/{id}','Admin\ManajemenUserController@update')->middleware('auth');
@@ -52,6 +50,8 @@ Route::get('/kelola-berkas', function () {
 // Kelola Berkas
 Route::get('/kelola-berkas','Admin\DokumenController@index')->middleware('auth');
 Route::get('/kelola-berkas/{id}','Admin\DokumenController@create')->middleware('auth');
+Route::post('/kelola-berkas/{id}/upload','Admin\DokumenController@unggah')->name('upload')->middleware('auth');
+Route::post('/kelola-berkas-hapus/{id}','Admin\DokumenController@destroy')->name('hapus')->middleware('auth');
 
 
 

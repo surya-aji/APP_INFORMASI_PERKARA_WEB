@@ -49,18 +49,25 @@
             <div class="card">
                 <div class="card-header divider d-flex align-items-start pb-0">
                     <div>
-                        <p>Selesai</p>
-                        <h2 class="text-bold-700  mt-1">97.5k</h2>
+                        <p>Selesai Unggah</p>
+                        <h2 class="text-bold-700  mt-1">{{$terupload}}</h2>
+                        
+                    </div>
+                    <div>
+                        <p>Belum Terunggah</p>
+                        <h2 class="text-bold-700  mt-1">{{$belum_terupload}}</h2>
+                        
                     </div>
                     <div class="avatar bg-rgba-success p-50">
                         <div class="avatar-content">
-                            <i class="feather icon-user-check text-success font-medium-5"></i>
+                            <i class="feather icon-upload text-success font-medium-5"></i>
                         </div>
                     </div>
                 </div>
                 <br>
             </div>
 
+               
 
 <br />
 

@@ -19,6 +19,7 @@ class CreateBerkasTable extends Migration
             $table->string('nomor_perkara');
             $table->string('dok');
             $table->string('petugas');
+            $table->integer('status');
             $table->timestamps();
         });
     }

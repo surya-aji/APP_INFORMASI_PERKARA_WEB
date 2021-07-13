@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Berkas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DokumenController extends Controller
 {
@@ -12,13 +15,19 @@ class DokumenController extends Controller
         $total_perkara = DB::connection('mysql3')->table('perkara')->count();
         
 
-        $data = DB::connection('mysql3')->table('perkara_putusan')
-        ->join('perkara','perkara_putusan.perkara_id','=','perkara.perkara_id')
+        $data = DB::table('sipp.perkara_putusan as md1')
+        ->join('sipp.perkara as md2','md1.perkara_id','=','md2.perkara_id')
+        ->leftJoin('dokumen_sipp.berkas as md3', 'md1.perkara_id', '=', 'md3.perkara_id')
         ->select(
-            'perkara_putusan.*',
-            'perkara.*',
+            'md1.*',
+            'md1.perkara_id as per_id',
+            'md2.nomor_perkara as noper',
+            'md2.*',
+            'md3.*',
            )
         ->get();
+
+       
 
         $masih_proses = DB::connection('mysql3')->table('perkara')
         ->select('perkara_id')
@@ -27,9 +36,24 @@ class DokumenController extends Controller
             ->from('perkara_putusan')
             ->whereRaw('perkara_putusan.perkara_id = perkara.perkara_id');
         })->count();
-        return view('admin.kelola-berkas.index',compact('data','total_perkara','masih_proses'));
+
+        $terupload = DB::connection('mysql')->table('berkas')
+        ->where('status',1)
+        ->count();
+
+        
+        $belum_terupload = DB::table('sipp.perkara_putusan as md1')
+        ->select('md1.perkara_id')
+        ->whereNotExists(function($query){
+            $query->select(DB::raw(1))
+            ->from('dokumen_sipp.berkas as md2')
+            ->whereRaw('md1.perkara_id = md2.perkara_id');
+        })->count();
+        // dd($data);
+        return view('admin.kelola-berkas.index',compact('data','total_perkara','masih_proses','belum_terupload','terupload'));
     }
     public function create(){
+        $id =  $url = request()->segment(count(request()->segments(2)));
         $total_perkara = DB::connection('mysql3')->table('perkara')->count();
         $masih_proses = DB::connection('mysql3')->table('perkara')
         ->select('perkara_id')
@@ -39,6 +63,70 @@ class DokumenController extends Controller
             ->whereRaw('perkara_putusan.perkara_id = perkara.perkara_id');
         })->count();
         $total_perkara = DB::connection('mysql3')->table('perkara')->count();
-        return view('admin.kelola-berkas.upload',compact('total_perkara','masih_proses'));
+
+        $terupload = DB::connection('mysql')->table('berkas')
+        ->where('status',1)
+        ->count();
+
+        
+        $belum_terupload = DB::table('sipp.perkara_putusan as md1')
+        ->select('md1.perkara_id')
+        ->whereNotExists(function($query){
+            $query->select(DB::raw(1))
+            ->from('dokumen_sipp.berkas as md2')
+            ->whereRaw('md1.perkara_id = md2.perkara_id');
+        })->count();
+        return view('admin.kelola-berkas.upload',compact('total_perkara','masih_proses','id','belum_terupload','terupload'));
+    }
+
+    public function unggah(Request $request){
+        $id = request()->segment(2);
+        
+        $data = DB::connection('mysql3')->table('perkara_putusan')
+        ->join('perkara','perkara_putusan.perkara_id','=','perkara.perkara_id')
+        ->select(
+            'perkara_putusan.*',
+            'perkara.*',
+           )
+        ->where('perkara_putusan.perkara_id',$id)
+        ->first();
+
+       
+        $berkas = new Berkas;
+        $berkas->perkara_id = request()->segment(2);
+        $berkas->nomor_perkara = $data->nomor_perkara;
+        $berkas->petugas = Auth::user()->username;
+        $berkas->status = 1;
+        if ($request->hasFile('file')) {
+            $nm = $request->file;
+            $namaFile = $id . "." . $nm->getClientOriginalExtension();
+            $berkas->dok = $namaFile;
+            $nm->move(public_path() . '/storage', $namaFile);
+        }else{
+            $berkas->dok = 'null';
+        }
+
+        $berkas->save();
+        return redirect('kelola-berkas');
+
+       
+
+
+    }
+
+    public function destroy($id){
+       
+        $item = Berkas::firstWhere('perkara_id',$id);
+        // dd($item);
+
+        $file = public_path('/storage/').$item->dok;
+        //cek jika ada file
+        if (file_exists($file)){
+            //maka delete file diforder public/storage
+            @unlink($file);
+        }
+        //delete data didatabase
+        $item->delete();
+        return back();
     }
 }

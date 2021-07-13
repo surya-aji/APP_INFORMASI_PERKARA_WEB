@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <script> 
+        <script type="text/javascript"> 
         /*=========================================================================================
     File Name: card-statistics.js
     Description: Card-statistics page content with Apexchart Examples
@@ -144,7 +144,7 @@ var $white = '#fff';
         size: 0,
         hover: {
             size: 5
-        }
+        },
     },
     xaxis: {
         labels: {
@@ -189,9 +189,7 @@ var $white = '#fff';
 
   salesavgChart.render();
 
-  document.getElementById("printChart").addEventListener("click",function(){
-    	chart.print();
-    });  	
+
 });
 
         

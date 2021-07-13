@@ -20,11 +20,18 @@
                                         <p class="card-text">This example allows user to create a button that will remove all files from a dropzone.
                                             Hear for the button's click event and then call <code>removeAllFiles</code> method to remove all the files
                                             from the dropzone.</p>
-                                        <button id="clear-dropzone" class="btn btn-primary mb-1"><i class="icon-trash4"></i>Clear</button>
-                                        <form action="#" class="dropzone dropzone-area" id="dpz-remove-all-thumb" method="post">
-                                            <div class="dz-message">Drop Files Here To Upload</div>
-                                        </form>
-                                    </div>
+                                        <form action="{{route('upload',$id)}}"  method="post" enctype="multipart/form-data">
+                                            @csrf
+                                            <fieldset class="form-group">
+                                                <label for="basicInputFile">With Browse button</label>
+                                                <div class="custom-file">
+                                                    <input type="file" name='file' class="custom-file-input" id="inputGroupFile01" required>
+                                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                                </div>
+                                            </fieldset>
+                                            <button type="submit" class="btn btn-primary">Unggah</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +41,9 @@
             </div>
         </div>
 
-        <script type="text/javascript">
+       <script type="text/javascript">
+
+        
                 document.addEventListener("DOMContentLoaded", function() {
                         
                 /*****************************************************
@@ -56,7 +65,7 @@
                     _this.removeAllFiles();
                     // If you want to cancel uploads as well, you
                     // could also call _this.removeAllFiles(true);
-                    });
+                    }); 
                 }
                 }
 

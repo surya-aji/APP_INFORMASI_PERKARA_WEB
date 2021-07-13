@@ -32,14 +32,35 @@
                                                         @foreach ($data as $i=>$item)
                                                         <tr>
                                                             <td>{{++$i}}</td>
-                                                            <td>{{$item->nomor_perkara}}</td>
+                                                            @if ($item->status == 1)
+                                                            <td>
+                                                                <div class="alert alert-success" role="alert">
+                                                                    <h4 class="alert-heading text-center">selesai</h4>
+                                                                    <p class="mb-0 text-center">
+                                                                        {{$item->noper}}
+                                                                    </p>
+                                                                </div>
+                                                            </td>
+                                                            @else
+                                                                <td> {{$item->noper}}</td>
+                                                            @endif
                                                             <td>{{$item->jenis_perkara_text}}</td>
                                                             <td>{{Carbon\Carbon::parse($item->tanggal_putusan)->isoFormat('dddd, D MMMM Y')}}</td>
+                                                            @if ($item->status == 1)
                                                             <td>
-                                                                <a href="{{url('kelola-berkas',$item->perkara_id)}}" type="button" class="btn btn-dark mr-1 mb-1"><i class="feather icon-upload"> Unggah  </i></a>
+                                                                <form style="display: inline;" action="{{route('hapus',$item->per_id)}}" method="post" onsubmit="return confirm('Yakin hapus data ?')" >
+                                                                    @csrf
+                                                                    <button type="submit" class="btn btn-danger btn-icon">
+                                                                      <i class="feather icon-trash"> Hapus File</i>
+                                                                    </button>
+                                                                  </form>
                                                             </td>    
+                                                            @else
+                                                            <td>
+                                                                <a href="{{url('kelola-berkas',$item->per_id)}}" type="button" class="btn btn-primary mr-1 mb-1"><i class="feather icon-upload"> Unggah  </i></a>
+                                                            </td>    
+                                                            @endif
                                                         @endforeach
-                                                        
                                                         </tr>
                                                     </tbody>
                                                     <tfoot>
