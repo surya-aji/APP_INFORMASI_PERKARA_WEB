@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ManajemenUserController extends Controller
@@ -24,6 +25,16 @@ class ManajemenUserController extends Controller
         ->where('status',1)
         ->count();
 
+        $event =  DB::connection('mysql')->table('berkas')
+        ->select(
+            DB::raw("(COUNT(*)) as title"),
+            DB::raw("(DATE_FORMAT(created_at, '%Y-%m-%d')) as start")
+            ) 
+            ->where('petugas',Auth::user()->username)
+            ->orderBy('created_at')
+            ->groupBy(DB::raw("(DATE_FORMAT(created_at, '%Y-%m-%d'))"))
+            ->get();
+
         
         $belum_terupload = DB::table('sipp.perkara_putusan as md1')
         ->select('md1.perkara_id')
@@ -33,7 +44,7 @@ class ManajemenUserController extends Controller
             ->whereRaw('md1.perkara_id = md2.perkara_id');
         })->count();
 
-        return view('admin.manajemen-user.index',compact('user','masih_proses','total_perkara','belum_terupload','terupload'));
+        return view('admin.manajemen-user.index',compact('user','masih_proses','total_perkara','belum_terupload','terupload','event'));
     }
     public function showRegister(){
         $total_perkara = DB::connection('mysql3')->table('perkara')->count();
@@ -48,6 +59,16 @@ class ManajemenUserController extends Controller
         ->where('status',1)
         ->count();
 
+        $event =  DB::connection('mysql')->table('berkas')
+        ->select(
+            DB::raw("(COUNT(*)) as title"),
+            DB::raw("(DATE_FORMAT(created_at, '%Y-%m-%d')) as start")
+            ) 
+            ->where('petugas',Auth::user()->username)
+            ->orderBy('created_at')
+            ->groupBy(DB::raw("(DATE_FORMAT(created_at, '%Y-%m-%d'))"))
+            ->get();
+
         
         $belum_terupload = DB::table('sipp.perkara_putusan as md1')
         ->select('md1.perkara_id')
@@ -56,7 +77,7 @@ class ManajemenUserController extends Controller
             ->from('dokumen_sipp.berkas as md2')
             ->whereRaw('md1.perkara_id = md2.perkara_id');
         })->count();
-        return view('admin.manajemen-user.register',compact('masih_proses','total_perkara','belum_terupload','terupload'));
+        return view('admin.manajemen-user.register',compact('masih_proses','total_perkara','belum_terupload','terupload','event'));
     }
     public function create(Request $request){
 
@@ -82,6 +103,16 @@ class ManajemenUserController extends Controller
         ->where('status',1)
         ->count();
 
+        $event =  DB::connection('mysql')->table('berkas')
+        ->select(
+            DB::raw("(COUNT(*)) as title"),
+            DB::raw("(DATE_FORMAT(created_at, '%Y-%m-%d')) as start")
+            ) 
+            ->where('petugas',Auth::user()->username)
+            ->orderBy('created_at')
+            ->groupBy(DB::raw("(DATE_FORMAT(created_at, '%Y-%m-%d'))"))
+            ->get();
+
         
         $belum_terupload = DB::table('sipp.perkara_putusan as md1')
         ->select('md1.perkara_id')
@@ -91,7 +122,7 @@ class ManajemenUserController extends Controller
             ->whereRaw('md1.perkara_id = md2.perkara_id');
         })->count();
         $user = User::findorfail($id);
-        return view('admin.manajemen-user.edit',compact('user','total_perkara','masih_proses','belum_terupload','terupload'));
+        return view('admin.manajemen-user.edit',compact('user','total_perkara','masih_proses','belum_terupload','terupload','event'));
     }
     public function update(Request $request, $id){
         $update = User::findorfail($id);

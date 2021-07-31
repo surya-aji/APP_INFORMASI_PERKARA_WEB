@@ -25,18 +25,13 @@ class cekLogged
         // }
         // return $next($request);
 
+        if(!$request->session()->has('login')) {
+            return redirect('/')->with('gagal','Silahkan Login Terlebih dahulu');
+        } 
+        
+        return $next($request);
 
-        $login = DB::table('pihak') 
-        ->where('nomor_indentitas', $request->nik)
-        ->where('telepon',$request->nomor_telepon)
-        ->first();
-
-        if(isset($login)){
-            // return redirect('/')->with('gagal','Silahkan Login Terlebih dahulu');
-            return redirect()->route('cekLogin', ['id' => $login->id]);
-        }
-
-        return redirect('/')->with('gagal','Silahkan Login Terlebih dahulu');
+      
       
         // return $next($request);
     }

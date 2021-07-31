@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                             </div>
-{{-- {{$data_tahun}} --}}
+{{-- {{$event}} --}}
 
                             <div class="col-lg-12 col-md-12 col-12">
                                 <div class="card">

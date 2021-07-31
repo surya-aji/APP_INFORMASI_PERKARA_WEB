@@ -44,6 +44,8 @@ class DashboardController extends Controller
             ->select('*')
             ->where('perkara_id',$url)
             ->get();
+
+            
     
 
 

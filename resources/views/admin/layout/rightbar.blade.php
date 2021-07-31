@@ -72,7 +72,7 @@
 <br />
 
 <!-- calendar Modal starts-->
-<div class="modal fade text-left modal-calendar" tabindex="-1" role="dialog" aria-labelledby="cal-modal" aria-modal="true">
+{{-- <div class="modal fade text-left modal-calendar" tabindex="-1" role="dialog" aria-labelledby="cal-modal" aria-modal="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -91,10 +91,10 @@
                         <input type="text" class="form-control pickadate" id="cal-start-date" placeholder="Tanggal" disabled />
                         <label for="cal-start-date">Tanggal</label>
                     </fieldset>
-                    {{-- <fieldset class="form-label-group">
+                    <fieldset class="form-label-group">
                         <input type="text" class="form-control pickadate disabled" id="cal-end-date" placeholder="End Date" />
                         <label for="cal-end-date">End Date</label>
-                    </fieldset> --}}
+                    </fieldset>
                     <fieldset class="form-label-group">
                         <textarea class="form-control" id="cal-description" rows="5" placeholder="Description" disabled></textarea>
                         <label for="cal-description">Deskripsi</label>
@@ -103,7 +103,7 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- calendar Modal ends-->
 <script>
     /*=========================================================================================
@@ -114,7 +114,10 @@
     Author: PIXINVENT
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
+var kalendar = {!! $event!!};
+// console.log(jadwal);
     document.addEventListener("DOMContentLoaded", function () {
+        
         // color object for different event types
         var colors = {
             primary: "#7367f0",
@@ -168,12 +171,13 @@
             editable: false,
             allDay: true,
             
+            
             navLinkDayClick: function (date) {
                 $(".modal-calendar").modal("show");
             },
             
            
-            
+            events:kalendar,
             eventColor: '#E8523F',
 
 
@@ -182,22 +186,22 @@
                 $(".modal-calendar #cal-end-date").val(info.dateStr);
             },
             // displays saved event values on click
-            eventClick: function (info) {
-                $(".modal-calendar").modal("show");
-                $(".modal-calendar #cal-event-title").val('SIDANG');
-                $(".modal-calendar #cal-start-date").val(moment(info.event.start).format('D MMMM Y'));
-                $(".modal-calendar #cal-end-date").val(moment(info.event.end).format("YYYY-MM-DD"));
-                $(".modal-calendar #cal-description").val(info.event.extendedProps.description);
-                $(".modal-calendar .cal-submit-event").removeClass("d-none");
-                $(".modal-calendar .remove-event").removeClass("d-none");
-                $(".modal-calendar .cal-add-event").addClass("d-none");
-                $(".modal-calendar .cancel-event").addClass("d-none");
-                $(".calendar-dropdown .dropdown-menu").find(".selected").removeClass("selected");
-                var eventCategory = info.event.extendedProps.dataEventColor;
-                var eventText = categoryText[eventCategory];
-                $(".modal-calendar .chip-wrapper .chip").remove();
-                $(".modal-calendar .chip-wrapper").append($("<div class='chip chip-" + eventCategory + "'>" + "<div class='chip-body'>" + "<span class='chip-text'> " + eventText + " </span>" + "</div>" + "</div>"));
-            },
+            // eventClick: function (info) {
+            //     $(".modal-calendar").modal("show");
+            //     $(".modal-calendar #cal-event-title").val('SIDANG');
+            //     $(".modal-calendar #cal-start-date").val(moment(info.event.start).format('D MMMM Y'));
+            //     $(".modal-calendar #cal-end-date").val(moment(info.event.end).format("YYYY-MM-DD"));
+            //     $(".modal-calendar #cal-description").val(info.event.extendedProps.description);
+            //     $(".modal-calendar .cal-submit-event").removeClass("d-none");
+            //     $(".modal-calendar .remove-event").removeClass("d-none");
+            //     $(".modal-calendar .cal-add-event").addClass("d-none");
+            //     $(".modal-calendar .cancel-event").addClass("d-none");
+            //     $(".calendar-dropdown .dropdown-menu").find(".selected").removeClass("selected");
+            //     var eventCategory = info.event.extendedProps.dataEventColor;
+            //     var eventText = categoryText[eventCategory];
+            //     $(".modal-calendar .chip-wrapper .chip").remove();
+            //     $(".modal-calendar .chip-wrapper").append($("<div class='chip chip-" + eventCategory + "'>" + "<div class='chip-body'>" + "<span class='chip-text'> " + eventText + " </span>" + "</div>" + "</div>"));
+            // },
         });
 
         // render calendar

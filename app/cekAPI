@@ -1,0 +1,7 @@
+POST http://localhost/SIPP/public/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "nomor_perkara": "5608/Pdt.G/2014/PA.Bwi
+",
+}

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Session;
 
 class LoginPihakController extends Controller
 {
@@ -16,14 +18,20 @@ class LoginPihakController extends Controller
     public function store(Request $request)
     {
 
-        $data = DB::connection('mysql3')->table('pihak') 
-        ->where('nomor_indentitas', $request->nik)
-        ->where('telepon',$request->nomor_telepon)
+        $data = DB::connection('mysql3')->table('pihak')
+        ->leftJoin('perkara_pihak1','pihak.id','=','perkara_pihak1.pihak_id' )
+        ->leftJoin('perkara_pihak2','pihak.id','=','perkara_pihak2.pihak_id' ) 
+        ->select('perkara_pihak1.perkara_id as get')
+        ->where('pihak.nomor_indentitas', $request->nik)
+        ->where('pihak.telepon',$request->nomor_telepon)
         ->first();
         
  
         if($data){
-            return redirect("/user/{$data->id}");
+            response()->json(['success' => 'success'], 200);
+          
+            return redirect("/user/{$data->get}")->with(['login' => 'selamat anda berhasil login']);
+            // dd($data);
         }else{
             return redirect('/')->with('gagal','Anda Belum Terdaftar di Sistem Kami');
         }
@@ -39,5 +47,10 @@ class LoginPihakController extends Controller
         ->get();
         return view()->compact($user);  
         
+    }
+
+    public function logout(Request $request){
+        $request->session()->flush();
+        return redirect('/');
     }
 }

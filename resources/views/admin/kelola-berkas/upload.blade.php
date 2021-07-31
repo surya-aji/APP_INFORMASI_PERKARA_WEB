@@ -17,16 +17,14 @@
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <p class="card-text">This example allows user to create a button that will remove all files from a dropzone.
-                                            Hear for the button's click event and then call <code>removeAllFiles</code> method to remove all the files
-                                            from the dropzone.</p>
+                                        <p class="card-text">Unggah Dokumen / Produk Akhir Untuk Nomor Perkara <strong>{{$nom->noper}}</strong></p>
                                         <form action="{{route('upload',$id)}}"  method="post" enctype="multipart/form-data">
                                             @csrf
                                             <fieldset class="form-group">
-                                                <label for="basicInputFile">With Browse button</label>
+                                                <label for="basicInputFile">Pilih Dokumen</label>
                                                 <div class="custom-file">
-                                                    <input type="file" name='file' class="custom-file-input" id="inputGroupFile01" required>
-                                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                                    <input type="file" name='file' class="custom-file-input" id="inputGroupFile01" required accept=".doc,pdf">
+                                                    <label class="custom-file-label" for="inputGroupFile01">Pilih File</label>
                                                 </div>
                                             </fieldset>
                                             <button type="submit" class="btn btn-primary">Unggah</button>

@@ -20,15 +20,17 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li class="nav-item">
-                    <li class="{{ Request::segment(1) === 'admin-dashboard' ? 'active' : null }}">
+                    <li class="{{ Request::segment(2) === 'admin-dashboard' ? 'active' : null }}">
                         <a href="<?= url('/admin-dashboard')?>"><i class="feather icon-home"></i><span class="menu-item" data-i18n="eCommerce">Dashboard</span></a>
                     </li>
-                    <li class="{{ Request::segment(1) === 'kelola-berkas' ? 'active' : null }}">
+                    <li class="{{ Request::segment(2) === 'kelola-berkas' ? 'active' : null }}">
                         <a href="<?= url('/kelola-berkas')?>"><i class="feather icon-book"></i><span class="menu-item" data-i18n="eCommerce">Kelola Berkas</span></a>
                     </li>
+                    @if (Auth::user()->role == 'admin')    
                     <li class="{{ Request::segment(1) === 'manajemen-user' ? 'active' : null }}">
                         <a href="<?= url('/manajemen-user')?>"><i class="feather icon-users"></i><span class="menu-item" data-i18n="eCommerce">Manajemen User</span></a>
                     </li>
+                    @endif
                 </ul>
             </li>
             

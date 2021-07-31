@@ -24,6 +24,7 @@ Route::get('/', function () {
 });
 
 Route::get('/login-user','User\LoginPihakController@index');
+Route::get('/logout-pihak','User\LoginPihakController@logout');
 Route::post('/logged-user','User\LoginPihakController@store')->name('loged');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 // Route::get('/login-admin', function(){
@@ -63,13 +64,14 @@ Route::post('/kelola-berkas-hapus/{id}','Admin\DokumenController@destroy')->name
 
 // Route::group(['prefix'=>'logged','middleware'=>'CheckLogged'],function(){
 
-    Route::group(['prefix' => '/user','middleware'=>'revalidate'],function () {
+    Route::group(['prefix' => '/user','middleware'=>'cekLogged'],function () {
         Route::get('/{id}','User\DashboardController@index')->name('cekLogin');
         Route::get('{id}/perkara','User\PerkaraController@index');
         Route::get('{id}/dataumum','User\DataUmumController@index');
         Route::get('{id}/penetapan','User\PenetapanController@index');
         Route::get('{id}/jadwal','User\SidangController@index');
         Route::get('{id}/putusan','User\PutusanController@index');
+        Route::get('{id}/putusan/download-file','User\PutusanController@downloadFile')->name('download-file');
         Route::get('{id}/biaya','User\BiayaController@index');
         Route::post('{id}/jadwal/ambil_antrian','User\SidangController@store')->name('ambil-antrian');
 

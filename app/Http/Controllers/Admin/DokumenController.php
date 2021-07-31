@@ -27,7 +27,16 @@ class DokumenController extends Controller
            )
         ->get();
 
-       
+        $event =  DB::connection('mysql')->table('berkas')
+        ->select(
+            DB::raw("(COUNT(*)) as title"),
+            DB::raw("(DATE_FORMAT(created_at, '%Y-%m-%d')) as start")
+            ) 
+            ->where('petugas',Auth::user()->username)
+            ->orderBy('created_at')
+            ->groupBy(DB::raw("(DATE_FORMAT(created_at, '%Y-%m-%d'))"))
+            ->get();
+
 
         $masih_proses = DB::connection('mysql3')->table('perkara')
         ->select('perkara_id')
@@ -50,7 +59,7 @@ class DokumenController extends Controller
             ->whereRaw('md1.perkara_id = md2.perkara_id');
         })->count();
         // dd($data);
-        return view('admin.kelola-berkas.index',compact('data','total_perkara','masih_proses','belum_terupload','terupload'));
+        return view('admin.kelola-berkas.index',compact('data','total_perkara','masih_proses','belum_terupload','terupload','event'));
     }
     public function create(){
         $id =  $url = request()->segment(count(request()->segments(2)));
@@ -76,7 +85,32 @@ class DokumenController extends Controller
             ->from('dokumen_sipp.berkas as md2')
             ->whereRaw('md1.perkara_id = md2.perkara_id');
         })->count();
-        return view('admin.kelola-berkas.upload',compact('total_perkara','masih_proses','id','belum_terupload','terupload'));
+
+        $nom = DB::table('sipp.perkara_putusan as md1')
+        ->join('sipp.perkara as md2','md1.perkara_id','=','md2.perkara_id')
+        ->leftJoin('dokumen_sipp.berkas as md3', 'md1.perkara_id', '=', 'md3.perkara_id')
+        ->select(
+            'md1.*',
+            'md1.perkara_id as per_id',
+            'md2.nomor_perkara as noper',
+            'md2.*',
+            'md3.*',
+           )
+           ->where('md1.perkara_id',$id)
+        ->first();
+
+        $event =  DB::connection('mysql')->table('berkas')
+        ->select(
+            DB::raw("(COUNT(*)) as title"),
+            DB::raw("(DATE_FORMAT(created_at, '%Y-%m-%d')) as start")
+            ) 
+            ->where('petugas',Auth::user()->username)
+            ->orderBy('created_at')
+            ->groupBy(DB::raw("(DATE_FORMAT(created_at, '%Y-%m-%d'))"))
+            ->get();
+
+
+        return view('admin.kelola-berkas.upload',compact('total_perkara','masih_proses','id','belum_terupload','terupload','nom','event'));
     }
 
     public function unggah(Request $request){

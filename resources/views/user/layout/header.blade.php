@@ -126,10 +126,7 @@
                                 <span><img class="round" src="{{asset('public/app-assets/images/portrait/small/icon-user.png')}}" alt="avatar" height="40" width="40" /></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="page-user-profile.html"><i class="feather icon-user"></i> Edit Profile</a><a class="dropdown-item" href="app-email.html"><i class="feather icon-mail"></i> My Inbox</a>
-                                <a class="dropdown-item" href="app-todo.html"><i class="feather icon-check-square"></i> Task</a><a class="dropdown-item" href="app-chat.html"><i class="feather icon-message-square"></i> Chats</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ url('/logout') }}"><i class="feather icon-power"></i> Logout</a>
+                                <a class="dropdown-item" href="{{ url('/logout-pihak') }}"><i class="feather icon-power"></i> Logout</a>
                             </div>
                         </li>
                     </ul>

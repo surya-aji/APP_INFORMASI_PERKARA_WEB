@@ -155,7 +155,16 @@
                     <div class="card-content">
                         <div class="card-body">
                             <p>
-                                {{Str::limit(strip_tags($putusan->amar_putusan), 50, '...')}} <br>
+                                {{Str::limit(strip_tags($putusan->amar_putusan), 50, '...')}} &nbsp 
+                            @if ($data_berkas->dok == null)
+                            <div class="alert alert-danger mt-1 alert-validation-msg" role="alert">
+                                <i class="feather icon-info mr-1 align-middle"></i>
+                                <span>Belum ada berkas</span><br>
+                            </div>
+                            @else
+                            <a href="{{route('download-file',$data->perkara_id)}}" class="btn btn-primary">Download Berkas Akhir</a> <br>
+
+                            @endif
                             </p>
                             <button type="button" class="btn btn-outline-primary btn-lg block" data-toggle="modal" data-target="#exampleModalCenter">
                                 Selengkapnya

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -45,7 +46,17 @@ class DashboardController extends Controller
             ->whereRaw('md1.perkara_id = md2.perkara_id');
         })->count();
 
-        return view('admin.layout.dashboard',compact('total_perkara','masih_proses','data_tahun','date','terupload','belum_terupload'));
+        $event =  DB::connection('mysql')->table('berkas')
+        ->select(
+            DB::raw("(COUNT(*)) as title"),
+            DB::raw("(DATE_FORMAT(created_at, '%Y-%m-%d')) as start")
+            ) 
+            ->where('petugas',Auth::user()->username)
+            ->orderBy('created_at')
+            ->groupBy(DB::raw("(DATE_FORMAT(created_at, '%Y-%m-%d'))"))
+            ->get();
+
+        return view('admin.layout.dashboard',compact('total_perkara','masih_proses','data_tahun','date','terupload','belum_terupload','event'));
 
       
 
