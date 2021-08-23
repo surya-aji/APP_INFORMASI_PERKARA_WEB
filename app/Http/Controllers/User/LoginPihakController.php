@@ -29,8 +29,8 @@ class LoginPihakController extends Controller
  
         if($data){
             response()->json(['success' => 'success'], 200);
-          
-            return redirect("/user/{$data->get}")->with(['login' => 'selamat anda berhasil login']);
+            session(['login' => 'true']);
+            return redirect("/user/{$data->get}");
             // dd($data);
         }else{
             return redirect('/')->with('gagal','Anda Belum Terdaftar di Sistem Kami');

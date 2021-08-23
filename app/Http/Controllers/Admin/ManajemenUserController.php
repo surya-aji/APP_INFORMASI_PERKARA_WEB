@@ -69,7 +69,6 @@ class ManajemenUserController extends Controller
             ->groupBy(DB::raw("(DATE_FORMAT(created_at, '%Y-%m-%d'))"))
             ->get();
 
-        
         $belum_terupload = DB::table('sipp.perkara_putusan as md1')
         ->select('md1.perkara_id')
         ->whereNotExists(function($query){

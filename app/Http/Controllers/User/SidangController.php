@@ -19,7 +19,6 @@ class SidangController extends Controller
         $data = DB::connection('mysql3')->table('perkara')
         ->where('perkara_id',$url)->first();
 
-        
         $datasidang = DB::connection('mysql3')->table('perkara_jadwal_sidang')
         ->latest('tanggal_sidang')
         ->where('perkara_id',$url)
@@ -30,7 +29,6 @@ class SidangController extends Controller
         ->where('perkara_id',$url)
         ->get();
 
-        // $checking = SELECT * FROM "absen_harian" WHERE username = $username AND DATE_FORMAT(tanggal, '%Y-%m-%d') = CURDATE()
         $checking = DB::connection('mysql2')->table('antrian')
         ->select('*')
         ->where('no_perk',$url)
@@ -41,15 +39,14 @@ class SidangController extends Controller
         ->where('no_perk',$url)
         ->first();
 
+        $jam = date('H');
+
         $tahap =  DB::connection('mysql3')->table('perkara_proses')
         ->select('*')
         ->where('perkara_id',$url)
         ->get();
 
-        
-
-
-        return view('user.jadwalsidang.index',compact('data','jadwal','url','datasidang','jadwal_agenda','checking','antrian','tahap'));
+        return view('user.jadwalsidang.index',compact('data','jadwal','url','datasidang','jadwal_agenda','checking','antrian','tahap','jam'));
     }
 
     public function store(Request $request){
@@ -76,7 +73,6 @@ class SidangController extends Controller
         $nomor =  DB::connection('mysql2')->table('antrian')
         ->where('ruang','=',$ruang->ruangan)
         ->max('nomor');
-
 
         DB::connection('mysql2')->table('antrian')->insert([
             ['nomor' => $nomor+1 , 'no_perk' => $url, 'penggugat' => $data->nama_pemohon, 'alamatP' => $data->alamat_pemohon, 'tergugat' => $data->nama_termohon, 'alamatT' => $data->alamat_termohon, 'ruang' => $ruang->ruangan, 'tim' => 1, 'status' => 0  ],

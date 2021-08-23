@@ -12,7 +12,6 @@ class DashboardController extends Controller
     public function index(){
         $date = DATE('Y');
         $total_perkara = DB::connection('mysql3')->table('perkara')->count();
-
         $data_tahun = DB::connection('mysql3')->table('perkara')
         ->select(
             DB::raw("(COUNT(*)) as y"),
@@ -22,8 +21,6 @@ class DashboardController extends Controller
             ->orderBy('tanggal_pendaftaran')
             ->groupBy(DB::raw("DATE_FORMAT(tanggal_pendaftaran, '%m')"))
             ->get();
-
-            
 
         $masih_proses = DB::connection('mysql3')->table('perkara')
         ->select('perkara_id')
@@ -37,7 +34,6 @@ class DashboardController extends Controller
         ->where('status',1)
         ->count();
 
-        
         $belum_terupload = DB::table('sipp.perkara_putusan as md1')
         ->select('md1.perkara_id')
         ->whereNotExists(function($query){
@@ -57,8 +53,6 @@ class DashboardController extends Controller
             ->get();
 
         return view('admin.layout.dashboard',compact('total_perkara','masih_proses','data_tahun','date','terupload','belum_terupload','event'));
-
-      
 
     }
 }

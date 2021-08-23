@@ -15,8 +15,8 @@ class DokumenController extends Controller
         $total_perkara = DB::connection('mysql3')->table('perkara')->count();
         
 
-        $data = DB::table('sipp.perkara_putusan as md1')
-        ->join('sipp.perkara as md2','md1.perkara_id','=','md2.perkara_id')
+        $data = DB::table('sipp311.perkara_putusan as md1')
+        ->join('sipp311.perkara as md2','md1.perkara_id','=','md2.perkara_id')
         ->leftJoin('dokumen_sipp.berkas as md3', 'md1.perkara_id', '=', 'md3.perkara_id')
         ->select(
             'md1.*',
@@ -25,6 +25,8 @@ class DokumenController extends Controller
             'md2.*',
             'md3.*',
            )
+        ->orderBy('md1.tanggal_putusan', 'desc')
+        ->limit(8000)
         ->get();
 
         $event =  DB::connection('mysql')->table('berkas')
@@ -51,7 +53,7 @@ class DokumenController extends Controller
         ->count();
 
         
-        $belum_terupload = DB::table('sipp.perkara_putusan as md1')
+        $belum_terupload = DB::table('sipp311.perkara_putusan as md1')
         ->select('md1.perkara_id')
         ->whereNotExists(function($query){
             $query->select(DB::raw(1))
@@ -78,7 +80,7 @@ class DokumenController extends Controller
         ->count();
 
         
-        $belum_terupload = DB::table('sipp.perkara_putusan as md1')
+        $belum_terupload = DB::table('sipp311.perkara_putusan as md1')
         ->select('md1.perkara_id')
         ->whereNotExists(function($query){
             $query->select(DB::raw(1))
@@ -86,8 +88,8 @@ class DokumenController extends Controller
             ->whereRaw('md1.perkara_id = md2.perkara_id');
         })->count();
 
-        $nom = DB::table('sipp.perkara_putusan as md1')
-        ->join('sipp.perkara as md2','md1.perkara_id','=','md2.perkara_id')
+        $nom = DB::table('sipp311.perkara_putusan as md1')
+        ->join('sipp311.perkara as md2','md1.perkara_id','=','md2.perkara_id')
         ->leftJoin('dokumen_sipp.berkas as md3', 'md1.perkara_id', '=', 'md3.perkara_id')
         ->select(
             'md1.*',

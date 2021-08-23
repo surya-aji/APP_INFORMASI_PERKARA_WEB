@@ -84,119 +84,71 @@
             <!-- Table head options end -->
 
         </div>
+      
+
         <div class="row">
             <section id="dashboard-analytics">
-            <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="card bg-analytics text-white">
-                    <div class="card-content">
+               <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="card bg-analytics text-white">
+                     <div class="card-content">
                         <div class="card-body text-center">
-                            <img src="{{asset('public/app-assets/images/elements/decore-left.png')}}" class="img-left" alt="card-img-left">
-                            <img src="{{asset('public/app-assets/images/elements/decore-right.png')}}" class="img-right" alt="card-img-right">
-                            <div class="avatar avatar-xl bg-primary shadow mt-0">
-                                <div class="avatar-content">
-                                    <i class="feather icon-award white font-large-1"></i>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <h1 class="mb-2 text-white"></h1>
-                                <p class="m-auto "> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Antrian Sidang <strong> {{$data->nomor_perkara}} </strong>  
-                                    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</p>
-                                <br>  <?php $now = date('Y-m-d'); ?>
-                                @if($now == $datasidang->tanggal_sidang)
-                                    @if(date('H')<'24' && count($checking) < 1)
-                                    <form class="form form-horizontal" action="<?=url("user/{$data->perkara_id}/jadwal/ambil_antrian")?>" method="POST" >
-                                        @csrf
-                                        <button  type="submit" class="btn btn-primary center">Ambil Antrian</button><br>
-                                    </form>
-
-                                    @elseif(Session::has('message'))
-                                    <div class="row">
-                                        <div class="col-xl-6 col-md-6 col-sm-6 ">
-                                            <div class="card collapse-icon accordion-icon-rotate">
-                                                <div class="card-body bg-primary rounded">
-                                                    <div class="accordion" id="accordionExample" data-toggle-hover="true">
-                                                        <div class="collapse-margin">
+                           <img src="{{asset('public/app-assets/images/elements/decore-left.png')}}" class="img-left" alt="card-img-left">
+                           <img src="{{asset('public/app-assets/images/elements/decore-right.png')}}" class="img-right" alt="card-img-right">
+                           <div class="avatar avatar-xl bg-primary shadow mt-0">
+                              <div class="avatar-content">
+                                 <i class="feather icon-award white font-large-1"></i>
+                              </div>
+                           </div>
+                           <div class="text-center">
+                              <h1 class="mb-2 text-white"></h1>
+                              <p class="m-auto "> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Antrian Sidang <strong> {{$data->nomor_perkara}} </strong>  
+                                 &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                              </p>
+                              <br>  <?php $now = date('Y-m-d'); ?>
+                              @if($now == $datasidang->tanggal_sidang)
+                                    {{-- DIBAWAH JAM 12 --}}
+                                  @if(date('H') < 12 )
+                                    {{-- JIKA BELUM AMBIL ANTRIAN  --}}
+                                      @if (count($checking) < 1)
+                                            <form class="form form-horizontal" action="<?=url("user/{$data->perkara_id}/jadwal/ambil_antrian")?>" method="POST" >
+                                                @csrf
+                                                <button  type="submit" class="btn btn-primary center">Ambil Antrian</button><br>
+                                            </form>
+                                    {{-- JIKA SUDAH AMBIL ANTRIAN --}}
+                                      @elseif(count($checking) > 0)
+                                            <div class="row">
+                                                <div class="col-xl-6 col-md-6 col-sm-6">
+                                                <div class="card collapse-icon accordion-icon-rotate">
+                                                    <div class="card-body bg-primary rounded">
+                                                        <div class="accordion" id="accordionExample" data-toggle-hover="true">
+                                                            <div class="collapse-margin">
                                                             <div class="card-header" id="headingOne" data-toggle="collapse" role="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                                                 <span class="lead collapse-title collapsed">
-                                                                    Ruangan
+                                                                Ruangan
                                                                 </span>
                                                             </div>
-                
                                                             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                                                                 <div class="card-body">
-                                                                   Bertempat di Ruang sidang {{$antrian->ruang}}
+                                                                    Bertempat di Ruang sidang {{$antrian->ruang}}
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="collapse-margin">
+                                                            </div>
+                                                            <div class="collapse-margin">
                                                             <div class="card-header" id="headingTwo" data-toggle="collapse" role="button" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                                                 <span class="lead collapse-title collapsed">
-                                                                    Agenda
+                                                                Agenda
                                                                 </span>
                                                             </div>
                                                             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                                                                 <div class="card-body">
-                                                                   Agenda <strong>{{$datasidang->agenda}}</strong>
+                                                                    Agenda <strong>{{$datasidang->agenda}}</strong>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="collapse-margin">
+                                                            </div>
+                                                            <div class="collapse-margin">
                                                             <div class="card-header" id="headingThree" data-toggle="collapse" role="button" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                                                 <span class="lead collapse-title">
-                                                                    Pihak
-                                                                </span>
-                                                            </div>
-                                                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                                                                <div class="card-body">
-                                                                {{$antrian->penggugat}} <strong>Lawan</strong> {{$antrian->tergugat}}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6 col-md-6 col-sm-6">
-                                            <h1 class="text-white" style="font-size: 200px"><strong><u>{{$antrian->nomor}}</u></strong></h1>
-                                        </div>
-                                    </div>
-
-                                    
-                                    @elseif(count($checking) > 0)
-                                    <div class="row">
-                                        <div class="col-xl-6 col-md-6 col-sm-6">
-                                            <div class="card collapse-icon accordion-icon-rotate">
-                                                <div class="card-body bg-primary rounded">
-                                                    <div class="accordion" id="accordionExample" data-toggle-hover="true">
-                                                        <div class="collapse-margin">
-                                                            <div class="card-header" id="headingOne" data-toggle="collapse" role="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                                                <span class="lead collapse-title collapsed">
-                                                                    Ruangan
-                                                                </span>
-                                                            </div>
-                
-                                                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                                                <div class="card-body">
-                                                                   Bertempat di Ruang sidang {{$antrian->ruang}}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="collapse-margin">
-                                                            <div class="card-header" id="headingTwo" data-toggle="collapse" role="button" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                                <span class="lead collapse-title collapsed">
-                                                                    Agenda
-                                                                </span>
-                                                            </div>
-                                                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                                                                <div class="card-body">
-                                                                   Agenda <strong>{{$datasidang->agenda}}</strong>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="collapse-margin">
-                                                            <div class="card-header" id="headingThree" data-toggle="collapse" role="button" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                                <span class="lead collapse-title">
-                                                                    Pihak
+                                                                Pihak
                                                                 </span>
                                                             </div>
                                                             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
@@ -204,42 +156,48 @@
                                                                     {{$antrian->penggugat}} Lawan {{$antrian->tergugat}}
                                                                 </div>
                                                             </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                </div>
+                                                <div class="col-xl-6 col-md-6 col-sm-6">
+                                                <h1 class="text-white" style="font-size: 200px"><strong><u>{{$antrian->nomor}}</u></strong></h1>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-xl-6 col-md-6 col-sm-6">
-                                            <h1 class="text-white" style="font-size: 200px"><strong><u>{{$antrian->nomor}}</u></strong></h1>
-                                        </div>
-                                    </div>
+                                     
+                                     
+                                            @elseif($antrian->status == 1)
+                                            <div class="alert alert-danger mt-1 alert-validation-msg" role="alert">
+                                                <i class="feather icon-info mr-1 align-middle"></i>
+                                                <span>Persidangan  <strong>  Anda </strong> Telah Telah Selesai.</span>
+                                            </div>
+                                      @endif
 
-
-                                    @else
-                                    <div class="alert alert-danger mt-1 alert-validation-msg" role="alert">
-                                        <i class="feather icon-info mr-1 align-middle"></i>
-                                        <span>Maaf, <strong>  Persidangan </strong> Untuk Hari ini telah selesai.</span>
-                                    </div>
-                                    
+                                      {{-- DIATAS JAM 12 --}}
+                                    @else 
+                                        <div class="alert alert-danger mt-1 alert-validation-msg" role="alert">
+                                            <i class="feather icon-info mr-1 align-middle"></i>
+                                            <span>Maaf, Pengambilan Antrian <strong>  Persidangan </strong> Telah Ditutup.</span>
+                                        </div>
                                     @endif
-                                
-                                @else
+                            {{-- JIKA TIDAK ADA JADWAL PERSIDANGAN  --}}
+                             @else
                                 <div class="alert alert-danger mt-1 alert-validation-msg" role="alert">
                                     <i class="feather icon-info mr-1 align-middle"></i>
-                                    <span>Maaf, Tidak ada <strong> Antrian Sidang</strong> Untuk Hari ini</span>
+                                    <span>Maaf, Tidak Ada <strong>  Persidangan </strong>Untuk Hari ini.</span>
                                 </div>
-                                @endif
-
-                                <br>
-                            </div>
-                        </div><br>
-                    </div>
-                </div>
-            </div>
-        </section>
-        </div>
-        
-
+                             @endif
+                            
+                            
+                           </div>
+                        </div>
+                        <br>
+                     </div>
+                  </div>
+               </div>
+            </section>
+         </div>
 
 
     </div>

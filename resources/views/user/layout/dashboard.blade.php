@@ -30,7 +30,7 @@
                                             <p class=" text-justify w-50"> Selamat Datang di Halaman Utama Aplikasi Informasi Perkara dan Antrian Sidang,
                                                 Anda Login Sebagai <strong> {{$data->nomor_perkara}} </strong>  
                                                 NIK dan Nomor Handphone anda Teregistrasi dengan Nomor Perkara
-                                                Gunakan Hak Akses Anda dengan bijak</p><br>{{Session::get('login')}}
+                                                Gunakan Hak Akses Anda dengan bijak</p><br>
                                             </div>
                                             <a href="<?=url("user/{$data->perkara_id}/dataumum")?>" class="btn btn-primary float-left" >Cek Data Anda</a><br>
                                         </div><br>

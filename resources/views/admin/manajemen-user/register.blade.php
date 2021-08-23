@@ -9,7 +9,7 @@
             </div>
             <div class="content-body">
                 <section class="row flexbox-container">
-                    <div class="col-xl-12 col-12 d-flex">
+                    <div class="col-xl-12 col-12">
                         <div class="card bg-authentication rounded-0 mb-0">
                             <div class="row m-0">
                                 <div class="col-lg-6 d-lg-block d-none text-center align-self-center">
@@ -58,7 +58,7 @@
                                                             </fieldset>
                                                         </div>
                                                     </div> --}}
-                                                    <button type="submit" class="btn btn-primary float-right btn-inline mb-50">Register</a>
+                                                    <button type="submit" class="btn btn-primary float-right btn-inline mb-50">Add User</a>
                                                 </form>
                                             </div>
                                         </div>

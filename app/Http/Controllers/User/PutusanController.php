@@ -11,15 +11,12 @@ class PutusanController extends Controller
 {
     public function index(){
         
-
         $url = request()->segment(2);
         $data = DB::connection('mysql3')->table('perkara')
         ->where('perkara_id',$url)->first();
 
         $putusan = DB::connection('mysql3')->table('perkara_putusan')
         ->where('perkara_id',$url)->first();
-        
-
         
         $datasidang = DB::connection('mysql3')->table('perkara_jadwal_sidang')
         ->latest('tanggal_sidang')
@@ -49,7 +46,6 @@ class PutusanController extends Controller
            ->where('md1.perkara_id',$url)
         ->first();
         
-
         return view('user.putusan.index',compact('data','url','putusan','datasidang','jadwal_agenda','tahap','data_berkas'));
     }
     public function downloadFile(){

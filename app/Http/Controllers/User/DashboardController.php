@@ -45,10 +45,6 @@ class DashboardController extends Controller
             ->where('perkara_id',$url)
             ->get();
 
-            
-    
-
-
         return view('user.layout.dashboard',compact('data','jam','datasidang','jadwal_agenda','tahap'));
     }
     

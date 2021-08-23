@@ -26,7 +26,6 @@ class BiayaCOntroller extends Controller
         ->where('perkara_id',$url)
         ->sum('perkara_biaya.jumlah');
 
-        
         $datasidang = DB::connection('mysql3')->table('perkara_jadwal_sidang')
         ->latest('tanggal_sidang')
         ->where('perkara_id',$url)
@@ -41,7 +40,6 @@ class BiayaCOntroller extends Controller
         ->select('*')
         ->where('perkara_id',$url)
         ->get();
-
         
         return view('user.biaya.index',compact('data','url','biaya','t_pemasukan','t_pengeluaran','datasidang','jadwal_agenda','tahap'));
     }
